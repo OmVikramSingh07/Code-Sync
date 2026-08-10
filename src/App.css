@@ -1,0 +1,412 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #ffffff;
+    color: #0f172a;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ==========================================================================
+   HOMEPAGE - Simple Clean White & Gray Card with Orange Accents
+   ========================================================================== */
+
+.homePageWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+    background-color: #f8fafc;
+}
+
+.homeContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    max-width: 960px;
+    width: 100%;
+    flex-wrap: wrap-reverse;
+}
+
+.heroGraphicWrap {
+    flex: 1;
+    min-width: 260px;
+    max-width: 360px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.heroGraphic {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.08));
+    animation: floatGraphic 6s ease-in-out infinite;
+}
+
+@keyframes floatGraphic {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+.formWrapper {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 36px;
+    width: 440px;
+    max-width: 100%;
+    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
+}
+
+.cardHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.homePageLogo {
+    height: 44px;
+    object-fit: contain;
+}
+
+.titleHeading {
+    font-size: 22px;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 6px;
+}
+
+.mainLabel {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #64748b;
+    margin-bottom: 24px;
+}
+
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.inputFieldWrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.inputIcon {
+    position: absolute;
+    left: 14px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #f97316;
+    pointer-events: none;
+}
+
+.inputBox {
+    width: 100%;
+    padding: 12px 14px 12px 38px;
+    border-radius: 10px;
+    outline: none;
+    border: 1px solid #cbd5e1;
+    background: #ffffff;
+    color: #0f172a;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.inputBox:focus {
+    border-color: #f97316;
+    box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.15);
+}
+
+.btn {
+    border: none;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+}
+
+.joinBtn {
+    background-color: #f97316;
+    color: #ffffff;
+    margin-top: 4px;
+}
+
+.joinBtn:hover {
+    background-color: #ea580c;
+}
+
+.createInfo {
+    margin-top: 8px;
+    text-align: center;
+    font-size: 13px;
+    color: #64748b;
+}
+
+.createNewBtn {
+    background: none;
+    border: none;
+    color: #f97316;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 13px;
+    margin-left: 2px;
+    transition: color 0.2s ease;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.createNewBtn:hover {
+    color: #ea580c;
+}
+
+
+/* ==========================================================================
+   EDITOR PAGE - Minimal White Background & Gray Border Layout
+   ========================================================================== */
+
+.mainWrap {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    height: 100vh;
+    overflow: hidden;
+    background-color: #ffffff;
+}
+
+.aside {
+    background: #f8fafc;
+    border-right: 1px solid #e2e8f0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+    user-select: none;
+}
+
+.asideInner {
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 110px);
+    overflow: hidden;
+}
+
+.brandHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #e2e8f0;
+    margin-bottom: 20px;
+}
+
+.logoImage {
+    height: 38px;
+    object-fit: contain;
+}
+
+.liveIndicator {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(249, 115, 22, 0.1);
+    border: 1px solid rgba(249, 115, 22, 0.2);
+    padding: 4px 10px;
+    border-radius: 20px;
+}
+
+.pulseDot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #f97316;
+    box-shadow: 0 0 6px #f97316;
+}
+
+.liveText {
+    font-size: 11px;
+    font-weight: 700;
+    color: #f97316;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.sectionHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+}
+
+.sectionHeader h3 {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #0f172a;
+}
+
+.peerBadge {
+    font-size: 11px;
+    font-weight: 700;
+    color: #ffffff;
+    background: #f97316;
+    padding: 2px 8px;
+    border-radius: 10px;
+}
+
+.clientsList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-y: auto;
+    padding-right: 4px;
+    flex: 1;
+}
+
+.clientCard {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    padding: 8px 12px;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+}
+
+.clientCard:hover {
+    border-color: #cbd5e1;
+}
+
+.avatarWrapper {
+    position: relative;
+    display: inline-flex;
+}
+
+.onlineBadge {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 10px;
+    height: 10px;
+    background-color: #f97316;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+}
+
+.userName {
+    font-size: 13px;
+    font-weight: 600;
+    color: #0f172a;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.actionGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 16px;
+    border-top: 1px solid #e2e8f0;
+}
+
+.copyBtn {
+    background: #ffffff;
+    color: #0f172a;
+    border: 1px solid #cbd5e1;
+    width: 100%;
+}
+
+.copyBtn:hover {
+    border-color: #f97316;
+    color: #f97316;
+}
+
+.leaveBtn {
+    background: #ffffff;
+    color: #dc2626;
+    border: 1px solid #fca5a5;
+    width: 100%;
+}
+
+.leaveBtn:hover {
+    background: #fef2f2;
+    border-color: #ef4444;
+}
+
+
+/* ==========================================================================
+   CODEMIRROR LIGHT THEME
+   ========================================================================== */
+
+.editorWrap {
+    height: 100vh;
+    background-color: #ffffff;
+    position: relative;
+    overflow: hidden;
+}
+
+.CodeMirror {
+    height: 100vh !important;
+    font-family: 'Fira Code', 'JetBrains Mono', monospace;
+    font-size: 15px;
+    line-height: 1.6;
+    background-color: #ffffff !important;
+    color: #0f172a !important;
+    padding-top: 10px;
+}
+
+.CodeMirror-gutters {
+    background-color: #f8fafc !important;
+    border-right: 1px solid #e2e8f0 !important;
+}
+
+.CodeMirror-linenumber {
+    color: #94a3b8 !important;
+    font-size: 13px;
+}
+
+.CodeMirror-cursor {
+    border-left: 2px solid #f97316 !important;
+}
+
+.CodeMirror-selected {
+    background: rgba(249, 115, 22, 0.15) !important;
+}
+
+.CodeMirror-scroll::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.CodeMirror-scroll::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+
+.CodeMirror-scroll::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
