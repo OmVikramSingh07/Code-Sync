@@ -13,7 +13,7 @@ body {
 }
 
 /* ==========================================================================
-   HOMEPAGE - Simple Clean White & Gray Card with Orange Accents
+   HOMEPAGE - Retro Brutalist Styling from User Snippet
    ========================================================================== */
 
 .homePageWrapper {
@@ -25,160 +25,160 @@ body {
     background-color: #f8fafc;
 }
 
-.homeContainer {
+.container {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 40px;
-    max-width: 960px;
+    flex-direction: column;
+    text-align: center;
     width: 100%;
-    flex-wrap: wrap-reverse;
 }
 
-.heroGraphicWrap {
-    flex: 1;
-    min-width: 260px;
-    max-width: 360px;
+.form_area {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.heroGraphic {
-    width: 100%;
-    max-width: 300px;
+    flex-direction: column;
+    background-color: #EDDCD9;
     height: auto;
-    object-fit: contain;
-    filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.08));
-    animation: floatGraphic 6s ease-in-out infinite;
-}
-
-@keyframes floatGraphic {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
-}
-
-.formWrapper {
-    background: #ffffff;
-    border: 1px solid #e2e8f0;
-    border-radius: 16px;
-    padding: 36px;
     width: 440px;
     max-width: 100%;
-    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
+    border: 2px solid #264143;
+    border-radius: 20px;
+    box-shadow: 3px 4px 0px 1px #E99F4C;
+    padding: 30px 24px;
 }
 
 .cardHeader {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    margin-bottom: 20px;
+    justify-content: center;
+    margin-bottom: 5px;
 }
 
 .homePageLogo {
-    height: 44px;
+    height: 48px;
     object-fit: contain;
 }
 
-.titleHeading {
-    font-size: 22px;
-    font-weight: 700;
-    color: #0f172a;
+.title {
+    color: #264143;
+    font-weight: 900;
+    font-size: 1.5em;
+    margin-top: 15px;
     margin-bottom: 6px;
 }
 
 .mainLabel {
     font-size: 14px;
-    line-height: 1.5;
-    color: #64748b;
-    margin-bottom: 24px;
+    line-height: 1.4;
+    color: #264143;
+    font-weight: 600;
+    margin-bottom: 15px;
+    padding: 0 15px;
 }
 
-.inputGroup {
+.form_area form {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    align-items: center;
+    width: 100%;
 }
 
-.inputFieldWrap {
+.form_group {
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    margin: 10px;
+    width: 290px;
+    max-width: 100%;
+}
+
+.sub_title {
+    font-weight: 600;
+    color: #264143;
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.inputBoxContainer {
     position: relative;
+    width: 100%;
     display: flex;
     align-items: center;
 }
 
 .inputIcon {
     position: absolute;
-    left: 14px;
+    left: 12px;
     font-size: 15px;
-    font-weight: 700;
-    color: #f97316;
+    font-weight: 800;
+    color: #264143;
     pointer-events: none;
+    z-index: 2;
 }
 
-.inputBox {
-    width: 100%;
-    padding: 12px 14px 12px 38px;
-    border-radius: 10px;
+.form_style {
     outline: none;
-    border: 1px solid #cbd5e1;
-    background: #ffffff;
-    color: #0f172a;
-    font-size: 14px;
-    font-weight: 500;
-    transition: all 0.2s ease;
+    border: 2px solid #264143;
+    box-shadow: 3px 4px 0px 1px #E99F4C;
+    width: 290px;
+    max-width: 100%;
+    padding: 12px 10px 12px 34px;
+    border-radius: 4px;
+    font-size: 15px;
+    color: #264143;
+    font-weight: 600;
+    background-color: #ffffff;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-.inputBox:focus {
-    border-color: #f97316;
-    box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.15);
+.form_style:focus, .btn:focus {
+    transform: translateY(4px);
+    box-shadow: 1px 2px 0px 0px #E99F4C;
 }
 
 .btn {
-    border: none;
-    padding: 12px 20px;
+    padding: 15px;
+    margin: 25px 0px 15px 0px;
+    width: 290px;
+    max-width: 100%;
+    font-size: 15px;
+    background: #DE5499;
+    color: #ffffff;
+    border: 2px solid #264143;
     border-radius: 10px;
-    font-size: 14px;
-    font-weight: 700;
+    font-weight: 800;
+    box-shadow: 3px 3px 0px 0px #E99F4C;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
-    transition: all 0.2s ease;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.2s ease;
 }
 
-.joinBtn {
-    background-color: #f97316;
-    color: #ffffff;
-    margin-top: 4px;
+.btn:hover {
+    opacity: .9;
 }
 
-.joinBtn:hover {
-    background-color: #ea580c;
+.link {
+    font-weight: 800;
+    color: #264143;
+    padding: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-decoration: underline;
+    font-size: 14px;
 }
 
 .createInfo {
     margin-top: 8px;
     text-align: center;
-    font-size: 13px;
-    color: #64748b;
-}
-
-.createNewBtn {
-    background: none;
-    border: none;
-    color: #f97316;
+    font-size: 14px;
+    color: #264143;
     font-weight: 600;
-    cursor: pointer;
-    font-size: 13px;
-    margin-left: 2px;
-    transition: color 0.2s ease;
-    text-decoration: underline;
-    text-underline-offset: 2px;
-}
-
-.createNewBtn:hover {
-    color: #ea580c;
 }
 
 
@@ -409,4 +409,200 @@ body {
 
 .CodeMirror-scroll::-webkit-scrollbar-thumb:hover {
     background: #94a3b8;
+}
+
+/* ==========================================================================
+   THEME TOGGLE BUTTON STYLES
+   ========================================================================== */
+
+.themeToggleWrap {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    z-index: 100;
+}
+
+.themeToggleBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border-radius: 10px;
+    border: 2px solid #264143;
+    background-color: #ffffff;
+    color: #264143;
+    font-size: 14px;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 3px 3px 0px 0px #E99F4C;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.2s ease;
+}
+
+.themeToggleBtn:hover {
+    opacity: 0.95;
+    transform: translateY(-1px);
+    box-shadow: 4px 4px 0px 0px #E99F4C;
+}
+
+.themeToggleBtn:active {
+    transform: translateY(2px);
+    box-shadow: 1px 1px 0px 0px #E99F4C;
+}
+
+.themeBtn {
+    background: #ffffff;
+    color: #264143;
+    border: 1px solid #cbd5e1;
+    width: 100%;
+}
+
+.themeBtn:hover {
+    border-color: #264143;
+    color: #264143;
+}
+
+/* ==========================================================================
+   DARK MODE OVERRIDES ([data-theme="dark"])
+   ========================================================================== */
+
+[data-theme="dark"] body {
+    background-color: #0b0f19;
+    color: #f8fafc;
+}
+
+[data-theme="dark"] .homePageWrapper {
+    background-color: #0b0f19;
+}
+
+[data-theme="dark"] .form_area {
+    background-color: #1e293b;
+    border-color: #38bdf8;
+    box-shadow: 3px 4px 0px 1px #e99f4c;
+}
+
+[data-theme="dark"] .title {
+    color: #f8fafc;
+}
+
+[data-theme="dark"] .mainLabel {
+    color: #cbd5e1;
+}
+
+[data-theme="dark"] .sub_title {
+    color: #f8fafc;
+}
+
+[data-theme="dark"] .inputIcon {
+    color: #38bdf8;
+}
+
+[data-theme="dark"] .form_style {
+    background-color: #0f172a;
+    color: #f8fafc;
+    border-color: #38bdf8;
+    box-shadow: 3px 4px 0px 1px #e99f4c;
+}
+
+[data-theme="dark"] .form_style:focus {
+    box-shadow: 1px 2px 0px 0px #e99f4c;
+}
+
+[data-theme="dark"] .btn.joinBtn {
+    background: #de5499;
+    color: #ffffff;
+    border-color: #38bdf8;
+}
+
+[data-theme="dark"] .link {
+    color: #38bdf8;
+}
+
+[data-theme="dark"] .createInfo {
+    color: #cbd5e1;
+}
+
+[data-theme="dark"] .themeToggleBtn {
+    background-color: #1e293b;
+    color: #f8fafc;
+    border-color: #38bdf8;
+    box-shadow: 3px 3px 0px 0px #e99f4c;
+}
+
+/* Editor Page Dark Theme */
+[data-theme="dark"] .mainWrap {
+    background-color: #0f172a;
+}
+
+[data-theme="dark"] .aside {
+    background-color: #1e293b;
+    border-right-color: #334155;
+}
+
+[data-theme="dark"] .brandHeader {
+    border-bottom-color: #334155;
+}
+
+[data-theme="dark"] .sectionHeader h3 {
+    color: #f8fafc;
+}
+
+[data-theme="dark"] .clientCard {
+    background-color: #0f172a;
+    border-color: #334155;
+}
+
+[data-theme="dark"] .userName {
+    color: #f8fafc;
+}
+
+[data-theme="dark"] .actionGroup {
+    border-top-color: #334155;
+}
+
+[data-theme="dark"] .themeBtn {
+    background: #0f172a;
+    color: #f8fafc;
+    border-color: #475569;
+}
+
+[data-theme="dark"] .themeBtn:hover {
+    border-color: #38bdf8;
+    color: #38bdf8;
+}
+
+[data-theme="dark"] .copyBtn {
+    background: #0f172a;
+    color: #f8fafc;
+    border-color: #475569;
+}
+
+[data-theme="dark"] .copyBtn:hover {
+    border-color: #38bdf8;
+    color: #38bdf8;
+}
+
+[data-theme="dark"] .leaveBtn {
+    background: #0f172a;
+    color: #f87171;
+    border-color: #991b1b;
+}
+
+[data-theme="dark"] .leaveBtn:hover {
+    background: #450a0a;
+    border-color: #ef4444;
+}
+
+[data-theme="dark"] .editorWrap,
+[data-theme="dark"] .CodeMirror {
+    background-color: #0f172a !important;
+    color: #f8fafc !important;
+}
+
+[data-theme="dark"] .CodeMirror-gutters {
+    background-color: #1e293b !important;
+    border-right-color: #334155 !important;
+}
+
+[data-theme="dark"] .CodeMirror-linenumber {
+    color: #64748b !important;
 }
