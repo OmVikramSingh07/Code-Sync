@@ -100,7 +100,7 @@ Code-Sync utilizes an event-driven architecture designed specifically for low-la
 │  ┌──────────────────────────────┴────────────────────────────┐  │
 │  │                Socket.IO Collaboration Server             │  │
 │  │  • Room Adapters   • userSocketMap   • Event Dispatcher   │  │
-│  └───────────────────────────────────────────────────────────┘  │
+│  └──────────────────────────────┴────────────────────────────┘  │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
@@ -124,20 +124,20 @@ Code-Sync utilizes an event-driven architecture designed specifically for low-la
 ## 🚧 Technical Challenges Overcome
 
 ### 1. Loop-Free Code Mirror State Synchronization
-* **Challenge**: Directly binding CodeMirror change events to socket emissions can cause infinite echo loops when receiving remote code updates.
-* **Solution**: Implemented change origin filtering (`origin !== 'setValue'`) and conditional value comparison before calling `setValue()`. This ensures locally initiated edits trigger socket broadcasts while remote edits update the view cleanly without triggering secondary outgoing emissions.
+- **Challenge**: Directly binding CodeMirror change events to socket emissions can cause infinite echo loops when receiving remote code updates.
+- **Solution**: Implemented change origin filtering (`origin !== 'setValue'`) and conditional value comparison before calling `setValue()`. This ensures locally initiated edits trigger socket broadcasts while remote edits update the view cleanly without triggering secondary outgoing emissions.
 
 ### 2. Zero-Database Late-Joiner Code State Catch-Up
-* **Challenge**: When a new client joins an established session, the server doesn't persist editor state in a database, leaving the new user with a blank editor.
-* **Solution**: Developed a peer-assisted state sync protocol (`ACTIONS.SYNC_CODE`). Upon receiving a `JOINED` event, existing room participants automatically send their active editor buffer directly to the newly joined `socketId`.
+- **Challenge**: When a new client joins an established session, the server doesn't persist editor state in a database, leaving the new user with a blank editor.
+- **Solution**: Developed a peer-assisted state sync protocol (`ACTIONS.SYNC_CODE`). Upon receiving a `JOINED` event, existing room participants automatically send their active editor buffer directly to the newly joined `socketId`.
 
 ### 3. React 19 Lifecycle & Connection Safety
-* **Challenge**: Dual mounting in React single-page components can result in duplicated socket connections and dangling event listeners.
-* **Solution**: Architected a robust cleanup pipeline inside `useEffect` using `isSubscribed` state flags, explicit `socket.off()` event detaching, and clean socket disconnection on component unmount.
+- **Challenge**: Dual mounting in React single-page components can result in duplicated socket connections and dangling event listeners.
+- **Solution**: Architected a robust cleanup pipeline inside `useEffect` using `isSubscribed` state flags, explicit `socket.off()` event detaching, and clean socket disconnection on component unmount.
 
 ### 4. Client Peer List Deduplication
-* **Challenge**: Multiple rapid socket reconnects or room sync events could result in duplicate peer cards rendering in the sidebar.
-* **Solution**: Built an in-memory client array deduplicator filtering by `socketId` in `EditorPage`, guaranteeing clean avatar rendering across all network events.
+- **Challenge**: Multiple rapid socket reconnects or room sync events could result in duplicate peer cards rendering in the sidebar.
+- **Solution**: Built an in-memory client array deduplicator filtering by `socketId` in `EditorPage`, guaranteeing clean avatar rendering across all network events.
 
 ---
 
@@ -222,6 +222,7 @@ The Express server automatically serves the compiled `/dist` frontend bundles an
 ---
 
 ## 🧪 Future Roadmap
+
 - 📝 **Multi-Language Syntax Selector**: Dynamic syntax mode switching (Python, C++, Java, HTML/CSS).
 - 🔒 **Password Protected Rooms**: Secure room entry with optional access passcodes.
 - 💬 **Integrated In-Room Chat**: Text chat sidebar alongside peer list.
@@ -231,6 +232,7 @@ The Express server automatically serves the compiled `/dist` frontend bundles an
 ---
 
 ## 🤝 Contributing
+
 Contributions, issues, and feature requests are welcome!
 
 Feel free to open an issue or submit a pull request if you'd like to improve Code-Sync.
@@ -238,6 +240,7 @@ Feel free to open an issue or submit a pull request if you'd like to improve Cod
 ---
 
 ## 📜 License
+
 MIT License © 2026 Code-Sync
 
 *Built for engineers who collaborate in real time.*
