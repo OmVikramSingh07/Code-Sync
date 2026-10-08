@@ -2,245 +2,228 @@
 
 **Real-time collaborative code editor built for software engineering teams**
 
-Code-Sync combines a high-performance CodeMirror editing engine, low-latency Socket.IO multiplayer synchronization, and instant room management into a single developer-first workspace.
+Code-Sync is a high-performance, developer-first workspace that combines a **CodeMirror** text editor engine, low-latency **Socket.IO** multiplayer synchronization, and instant room management into a seamless pair programming platform.
 
-`React 19` `Vite` `Node.js` `Express` `Socket.IO` `CodeMirror` `JavaScript` `CSS3`
-
----
-
-## 📌 About
-
-Most collaborative editors are heavy, bloated, or require complex authentication setup.
-
-**Code-Sync was built specifically for developers who need instant, frictionless real-time code collaboration.**
-
-The goal was to create a lightweight, responsive system where engineering teams can:
-- **Pair program** live with zero setup delay,
-- **Conduct technical interviews** in isolated, sync-enabled rooms,
-- **Share code snippets** and debug together in real time.
-
-Instead of heavy web clients or complex cloud authentication overhead, Code-Sync provides single-click room generation, efficient Socket.IO event broadcasting, and immediate late-joiner code state synchronization.
+![React](https://img.shields.io/badge/React-19.0-61DAFB?logo=react&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-8.0-646CFF?logo=vite&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js-18+-339933?logo=nodedotjs&logoColor=white)
+![Express](https://img.shields.io/badge/Express-5.0-000000?logo=express&logoColor=white)
+![Socket.IO](https://img.shields.io/badge/Socket.IO-4.8-010101?logo=socketdotio&logoColor=white)
+![CodeMirror](https://img.shields.io/badge/CodeMirror-5.65-D70000?logo=codemirror&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-green.svg)
 
 ---
 
-## 🎨 Features
+## 📌 Project Overview
+
+**Code-Sync** was created to eliminate the setup friction involved in live developer collaboration. Whether conducting technical interviews, pair programming on complex modules, or debugging code snippets in real time, Code-Sync provides instant, isolated collaborative rooms without requiring user sign-ups or heavy cloud overhead.
+
+### Key Highlights
+- **Zero-Delay Room Creation**: Generate cryptographically secure unique room links with one click.
+- **Bi-directional Live Sync**: Character-by-character real-time code editor synchronization.
+- **Zero-Database Buffer Catch-up**: Late-joining developers instantly receive the current editor buffer state from active peers.
+- **Theme Switching**: Seamless toggle between Light (Bright) and Dark mode interfaces.
+- **Live Peer Roster**: Interactive sidebar displaying active online users, animated status indicators, and user avatars.
+
+---
+
+## 🎨 Core Features
 
 ### ⚡ Real-Time Code Synchronization
-Powered by Socket.IO with dynamic state delta tracking.
-- Instant character-by-character editing sync across all connected room members.
-- Bidirectional event broadcasting with near-zero latency.
-- Smart origin filtering to prevent typing lag and edit collisions.
+- Powered by Socket.IO WebSocket protocols.
+- Low-latency event relay ensures remote keystrokes render smoothly.
+- Infinite echo prevention ensures local keystrokes fire change events without re-triggering remote updates.
 
-### 👥 Live Peer Presence & Room Management
-- Real-time active user roster with dynamic user avatars (`react-avatar`).
-- Animated visual pulse indicator for active live sessions.
-- Real-time toast notifications (`react-hot-toast`) when peers join or leave rooms.
-- Single-click unique Room ID generation powered by `uuid` v4.
-- One-click copy-to-clipboard functionality for seamless room invitation.
+### 🌓 Dual Theme Support (Bright & Dark Mode)
+- Built-in theme manager persisted in browser `localStorage`.
+- Tailored color palettes for both editor and workspace background cards.
+- Integrated CodeMirror Dracula theme syntax highlighting.
 
-### 💻 Integrated CodeMirror Editor Surface
-- Feature-rich CodeMirror environment with dark Dracula theme syntax highlighting.
-- Automatic bracket closing (`closebrackets`) and tag closing (`closetag`).
-- Full line numbering, line wrapping, tab formatting, and smooth scrolling.
+### 👥 Live Peer Presence & Roster
+- Dynamic user avatars powered by `react-avatar`.
+- Active online user counter badge.
+- Real-time notification toasts via `react-hot-toast` on peer join and leave events.
+- In-memory socket ID deduplication to prevent ghost user listings.
 
-### 🔄 Late-Joiner Code State Sync
-- Automated code catch-up protocol (`SYNC_CODE`).
-- When a new developer joins an ongoing room, existing active peers automatically transmit the current editor buffer state to ensure immediate room-wide code parity.
+### 💻 CodeMirror 5 Integration
+- High-performance JavaScript/JSON editing surface.
+- Auto-closing tags and auto-closing brackets.
+- Line numbering, line wrapping, custom tab sizing, and smooth scrolling.
 
----
-
-## 🧠 Killer Feature Spotlight — Low-Latency Socket.IO Protocol
-
-Code-Sync utilizes an event-driven architecture designed specifically for low-latency code collaboration without server-side database bottlenecks.
-
-### Synchronization Workflow
-
-```
-[ Developer A Types ] 
-        │
-        ▼
-[ CodeMirror Change Event ]
-        │ (Filter 'setValue' origins)
-        ▼
-[ Socket.IO Emit 'code-change' ]
-        │
-        ▼
-[ Express / Socket.IO Server ]
-        │ (Broadcast to Room)
-        ▼
-[ Developer B Receives ] ────► [ CodeMirror Updated ]
-```
-
-1. **User Input Detection**: CodeMirror captures input changes (`origin !== 'setValue'`).
-2. **Event Dispatch**: Client fires `ACTIONS.CODE_CHANGE` with the updated code string and target `roomId`.
-3. **Server Relay**: Express/Socket.IO server broadcasts the payload to all room sockets except the sender socket.
-4. **State Reconciliation**: Receiver checks buffer equality and updates CodeMirror seamlessly without losing cursor focus.
+### 📋 One-Click Share & Room Copy
+- Built-in `uuid` v4 generator for unique session IDs.
+- One-click copy Room ID button with instant toast confirmation.
 
 ---
 
-## 🏗️ Architecture Diagram
-
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                       Client Browser                            │
-│  ┌───────────────────────────────┐  ┌────────────────────────┐  │
-│  │   React 19 + React Router     │  │   CodeMirror 5 Editor   │  │
-│  └───────────────┬───────────────┘  └───────────┬────────────┘  │
-│                  │                              │               │
-│                  └───►  Socket.IO Client  ◄─────┘               │
-└──────────────────────────────┬──────────────────────────────────┘
-                               │ (WebSocket Protocol)
-                               ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                      Node.js Backend                            │
-│  ┌───────────────────────────────────────────────────────────┐  │
-│  │                   Express 5 Web Server                    │  │
-│  └───────────────┬───────────────────────────────────────────┘  │
-│                  │                                              │
-│  ┌───────────────┴───────────────────────────────────────────┐  │
-│  │                Socket.IO Collaboration Server             │  │
-│  │  • Room Adapters   • userSocketMap   • Event Dispatcher   │  │
-│  └───────────────────────────────────────────────────────────┘  │
-└─────────────────────────────────────────────────────────────────┘
-```
-
----
-
-## 🧱 Tech Stack
-
-| Layer | Technology | Description |
-| :--- | :--- | :--- |
-| **Frontend Framework** | React 19, Vite | Fast UI rendering and hot-module replacement |
-| **Routing** | React Router DOM v7 | Dynamic client-side room routing (`/editor/:roomId`) |
-| **Code Editor Engine** | CodeMirror 5 | High-performance text editor surface with auto-close addons |
-| **Realtime Layer** | Socket.IO (Client & Server v4) | Low-latency WebSockets collaboration layer |
-| **Backend API Server** | Express.js 5 / Node.js | HTTP static server & Socket server host |
-| **UI Notifications** | React Hot Toast | Real-time connection status and peer join/leave toasts |
-| **Avatars & Styling** | React Avatar, Custom CSS | Modern clean UI design with orange accents |
-| **Utilities** | UUID v4 | Cryptographically secure unique room generation |
-
----
-
-## 🚧 Technical Challenges Overcome
-
-### 1. Loop-Free Code Mirror State Synchronization
-- **Challenge**: Directly binding CodeMirror change events to socket emissions can cause infinite echo loops when receiving remote code updates.
-- **Solution**: Implemented change origin filtering (`origin !== 'setValue'`) and conditional value comparison before calling `setValue()`. This ensures locally initiated edits trigger socket broadcasts while remote edits update the view cleanly without triggering secondary outgoing emissions.
-
-### 2. Zero-Database Late-Joiner Code State Catch-Up
-- **Challenge**: When a new client joins an established session, the server doesn't persist editor state in a database, leaving the new user with a blank editor.
-- **Solution**: Developed a peer-assisted state sync protocol (`ACTIONS.SYNC_CODE`). Upon receiving a `JOINED` event, existing room participants automatically send their active editor buffer directly to the newly joined `socketId`.
-
-### 3. React 19 Lifecycle & Connection Safety
-- **Challenge**: Dual mounting in React single-page components can result in duplicated socket connections and dangling event listeners.
-- **Solution**: Architected a robust cleanup pipeline inside `useEffect` using `isSubscribed` state flags, explicit `socket.off()` event detaching, and clean socket disconnection on component unmount.
-
-### 4. Client Peer List Deduplication
-- **Challenge**: Multiple rapid socket reconnects or room sync events could result in duplicate peer cards rendering in the sidebar.
-- **Solution**: Built an in-memory client array deduplicator filtering by `socketId` in `EditorPage`, guaranteeing clean avatar rendering across all network events.
-
----
-
-## 📂 Project Structure
+## 📁 Project Structure
 
 ```
 Code-Sync/
- ├── server.js             # Express & Socket.IO backend server
- ├── index.html            # HTML layout entry point
- ├── vite.config.js        # Vite bundler configuration
- ├── package.json          # Package manifest & scripts
- ├── public/               # Static public assets
- └── src/
-      ├── Actions.js        # Socket event dictionary
-      ├── socket.js         # Socket.IO client connector
-      ├── App.jsx           # App routes & toast provider
-      ├── App.css           # Custom CSS design system
-      ├── components/
-      │    ├── Client.jsx    # User peer avatar component
-      │    └── Editor.jsx    # CodeMirror component integration
-      └── pages/
-           ├── HomePage.jsx  # Room join & generation page
-           └── EditorPage.jsx# Collaborative editor workspace
+├── .env                       # Environment variables configuration
+├── .gitignore                 # Git ignore specifications
+├── eslint.config.js            # ESLint flat configuration
+├── index.html                 # Main HTML entry point & font links
+├── package.json               # Dependencies and build scripts
+├── package-lock.json          # Node package manager lockfile
+├── README.md                  # Detailed Project Documentation
+├── server.js                  # Express & Socket.IO backend server
+├── vite.config.js             # Vite bundler configuration
+├── public/                    # Static public directory
+└── src/                       # React frontend source code
+    ├── Actions.js             # Socket event constants dictionary
+    ├── App.css                # Custom CSS design system & themes
+    ├── App.jsx                # Application router & toast container
+    ├── index.css              # Global styles & root resets
+    ├── main.jsx               # React DOM mounting entry point
+    ├── socket.js              # Socket.IO client initialization logic
+    ├── assets/                # Branding images & logos
+    │   └── Code-Sync.png      # Application logo
+    ├── components/            # Modular React components
+    │   ├── Client.jsx         # User peer avatar component card
+    │   └── Editor.jsx         # CodeMirror editor wrapper & socket listener
+    └── pages/                 # Routing page views
+        ├── HomePage.jsx       # Room join & creation landing page
+        └── EditorPage.jsx     # Real-time collaborative editor workspace
 ```
 
 ---
 
-## ⚡ Quick Start
+## 🏗️ Architecture & Data Flow
+
+```
+┌────────────────────────────────────────────────────────────────────────┐
+│                          Client Browser                                │
+│  ┌──────────────────────────────┐     ┌─────────────────────────────┐  │
+│  │   React 19 + React Router    │     │    CodeMirror 5 Editor      │  │
+│  └──────────────┬───────────────┘     └──────────────┬──────────────┘  │
+│                 │                                    │                 │
+│                 └───────────► Socket.IO Client ◄─────┘                 │
+└─────────────────────────────────────┬──────────────────────────────────┘
+                                      │ (WebSocket / Polling)
+                                      ▼
+┌────────────────────────────────────────────────────────────────────────┐
+│                         Node.js Backend                                │
+│  ┌──────────────────────────────────────────────────────────────────┐  │
+│  │                    Express 5 Web Server                          │  │
+│  └──────────────────────────────────┬───────────────────────────────┘  │
+│                                     │                                  │
+│  ┌──────────────────────────────────┴───────────────────────────────┐  │
+│  │               Socket.IO Collaboration Server                     │  │
+│  │   • Room Adapter   • userSocketMap Map   • Event Dispatcher      │  │
+│  └──────────────────────────────────────────────────────────────────┘  │
+└────────────────────────────────────────────────────────────────────────┘
+```
+
+### Event Lifecycle & Synchronization Flow
+
+1. **User Types**: Input captured by CodeMirror `change` handler (`origin !== 'setValue'`).
+2. **Emit Event**: Client dispatches `code-change` event with target `roomId` and code content.
+3. **Server Relay**: Socket.IO server broadcasts `code-change` payload to all other clients connected to `roomId`.
+4. **State Update**: Remote clients inspect code difference and update CodeMirror view safely using `setValue(code)`.
+5. **Peer Catch-Up**: On new user join (`join`), active clients emit `sync-code` to deliver the live code buffer directly to the newly joined `socketId`.
+
+---
+
+## 🔌 Socket Events Reference
+
+| Event Name | Direction | Payload | Purpose |
+| :--- | :--- | :--- | :--- |
+| `join` | Client ➔ Server | `{ roomId, username }` | Registers user socket in a specific room channel |
+| `joined` | Server ➔ Client | `{ clients, username, socketId }` | Emitted to room when a new peer connects |
+| `code-change` | Client ↔ Server | `{ roomId, code }` / `{ code }` | Relays live code editor updates to peers |
+| `sync-code` | Client ➔ Server ➔ Client | `{ socketId, code }` | Transfers active code buffer to a newly joined peer |
+| `disconnected` | Server ➔ Client | `{ socketId, username }` | Notifies remaining room members when a peer leaves |
+| `leave` | Client ➔ Server | `{ roomId }` | Explicit room exit notification |
+
+---
+
+## 🛠️ Tech Stack & Dependencies
+
+### Frontend
+- **React 19**: Modern UI rendering and component state management.
+- **Vite 8**: Next-generation lightning-fast frontend tooling and HMR.
+- **React Router DOM 7**: Single-page application room routing (`/editor/:roomId`).
+- **CodeMirror 5**: Performant text editing engine with auto-close extensions.
+- **React Avatar**: Dynamic user avatar generation from names.
+- **React Hot Toast**: Crisp status and event notifications.
+
+### Backend
+- **Node.js**: Asynchronous JavaScript runtime.
+- **Express.js 5**: Web application framework serving production static assets.
+- **Socket.IO 4**: Low-latency bidirectional event-based communication.
+
+### Utilities
+- **UUID v4**: Cryptographically secure unique room generation.
+
+---
+
+## ⚡ Quick Start & Installation
 
 ### Prerequisites
 - **Node.js**: `v18.0.0` or higher
-- **npm** or **yarn**
+- **npm**: `v9.0.0` or higher
 
-### 1. Clone the repository
+### 1. Clone the Repository
 ```bash
-git clone https://github.com/your-username/code-sync.git
-cd code-sync
+git clone https://github.com/OmVikramSingh07/codesync.git
+cd codesync/Code-Sync
 ```
 
-### 2. Install dependencies
+### 2. Install Dependencies
 ```bash
 npm install
 ```
 
-### 3. Configure environment variables (Optional)
-Create a `.env` file in the root folder if a custom port or backend host is needed:
+### 3. Configure Environment Variables (Optional)
+Create a `.env` file inside the `Code-Sync` folder:
 ```env
 VITE_BACKEND_URL=http://localhost:5000
 PORT=5000
 ```
 
-### 4. Run Development Servers
+### 4. Run Development Mode
 
-**Start Node.js Backend Server:**
+**Start Backend Server:**
 ```bash
 npm run server:dev
 ```
 
-**Start Vite React Frontend (in a separate terminal):**
+**Start Vite Frontend Server (in a new terminal):**
 ```bash
 npm run dev
 ```
 
-Open your browser at `http://localhost:5173`.
+Navigate to `http://localhost:5173` in your browser.
 
 ---
 
-## 🚀 Production Deployment & Build
+## 🚀 Production Build & Deployment
 
-### 1. Build Frontend Assets
+### 1. Build Production Frontend
 ```bash
 npm run build
 ```
-This compiles the optimized production build into the `/dist` directory.
+This bundles static React assets into the `dist` folder.
 
-### 2. Run Single Server Production Mode
+### 2. Launch Production Server
 ```bash
 npm run server:dev
 ```
-The Express server automatically serves the compiled `/dist` frontend bundles and handles Socket.IO connections concurrently on port `5000`.
-
----
-
-## 🧪 Future Roadmap
-
-- 📝 **Multi-Language Syntax Selector**: Dynamic syntax mode switching (Python, C++, Java, HTML/CSS).
-- 🔒 **Password Protected Rooms**: Secure room entry with optional access passcodes.
-- 💬 **Integrated In-Room Chat**: Text chat sidebar alongside peer list.
-- 💾 **Local File Export & Download**: One-click download of edited code files.
-- 🎨 **Custom Theme Switcher**: Toggle between Dracula, Monokai, Solarized, and Light themes.
+The Express server will automatically serve the built static assets from `dist/` and handle Socket.IO connections concurrently on port `5000`.
 
 ---
 
 ## 🤝 Contributing
 
-Contributions, issues, and feature requests are welcome!
-
-Feel free to open an issue or submit a pull request if you'd like to improve Code-Sync.
+Contributions, issues, and feature requests are welcome! Feel free to check out the repository and open a pull request.
 
 ---
 
 ## 📜 License
 
-MIT License © 2026 Code-Sync
+This project is licensed under the [MIT License](LICENSE).
 
-*Built for engineers who collaborate in real time.*
+---
+
+*Built with ❤️ for real-time developer collaboration.*
